@@ -1,0 +1,14 @@
+{
+  "name": "gqlxy-core",
+  "version": "0.1.0",
+  "description": "Shared utilities and types for the gqlxy C++ GraphQL ecosystem",
+  "homepage": "https://github.com/KaSSaaaa/gqlxy-core",
+  "license": "MIT",
+  "supports": "!uwp",
+  "dependencies": [
+    "cppgraphqlgen",
+    "nlohmann-json",
+    "better-enums",
+    "gtest"
+  ]
+}
