@@ -36,6 +36,7 @@ project(gqlxy-core VERSION 0.1.0 LANGUAGES CXX)
 include(cmake/dependencies.cmake)
 
 add_library(gqlxy_core STATIC)
+set_target_properties(gqlxy_core PROPERTIES EXPORT_NAME gqlxy_core)
 target_compile_features(gqlxy_core PUBLIC cxx_std_20)
 target_include_directories(gqlxy_core
     PUBLIC
@@ -52,7 +53,7 @@ target_link_libraries(gqlxy_core
 
 add_subdirectory(src)
 
-add_library(gqlxy::core ALIAS gqlxy_core)
+add_library(gqlxy_core::gqlxy_core ALIAS gqlxy_core)
 
 include(CTest)
 add_subdirectory(tests)
@@ -77,7 +78,7 @@ install(TARGETS gqlxy_core
 
 install(EXPORT gqlxy-coreTargets
     FILE gqlxy-coreTargets.cmake
-    NAMESPACE gqlxy::
+    NAMESPACE gqlxy_core::
     DESTINATION lib/cmake/gqlxy-core
 )
 
