@@ -1,7 +1,7 @@
-#include <gqlxy/parser/ast/operation_definition.h>
-#include <gqlxy/parser/ast/selection.h>
-#include <gqlxy/parser/peg/parser/query/parse_document.h>
-#include <gqlxy/parser/peg/parser/query/parse_operations.h>
+#include <gqlxy/core/parser/ast/operation_definition.h>
+#include <gqlxy/core/parser/ast/selection.h>
+#include <gqlxy/core/parser/peg/parser/query/parse_document.h>
+#include <gqlxy/core/parser/peg/parser/query/parse_operations.h>
 #include <gtest/gtest.h>
 #include <nlohmann/json.hpp>
 

@@ -1,4 +1,4 @@
-#include <gqlxy/utils/optional.h>
+#include <gqlxy/core/utils/optional.h>
 #include <gtest/gtest.h>
 #include <memory>
 #include <string>
