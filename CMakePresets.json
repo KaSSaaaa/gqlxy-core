@@ -6,6 +6,7 @@
       "hidden": true,
       "generator": "Ninja",
       "cacheVariables": {
+        "BUILD_TESTING": "ON",
         "ENABLE_VCPKG_BOOTSTRAP": "ON",
         "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
       }
@@ -66,7 +67,8 @@
       "inherits": "base-x64-osx",
       "binaryDir": "${sourceDir}/out/build/x64-osx-debug",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_COVERAGE": "ON"
       }
     },
     {

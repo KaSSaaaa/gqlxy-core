@@ -43,4 +43,7 @@
 .idea/
 .vscode/
 out/
+build
+coverage
+.DS_Store
 cmake-build-*/

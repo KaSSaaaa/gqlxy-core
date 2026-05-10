@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.10.0)
 option(ENABLE_VCPKG_BOOTSTRAP "Bootstrap vcpkg in the build dir and install manifest deps" OFF)
+option(ENABLE_COVERAGE "Instrument binaries for gcov/lcov code coverage" OFF)
+
+if (ENABLE_COVERAGE)
+    add_compile_options(--coverage -O0)
+    add_link_options(--coverage)
+endif ()
 
 find_program(SYSTEM_VCPKG_EXECUTABLE NAMES vcpkg vcpkg.exe)
 
@@ -54,9 +60,16 @@ target_link_libraries(gqlxy_core
 add_subdirectory(src)
 
 add_library(gqlxy_core::gqlxy_core ALIAS gqlxy_core)
-
 include(CTest)
-add_subdirectory(tests)
+enable_testing()
+
+if (BUILD_TESTING AND PROJECT_IS_TOP_LEVEL)
+    add_subdirectory(tests)
+endif()
+
+if (ENABLE_COVERAGE)
+    include(cmake/coverage.cmake)
+endif ()
 
 include(CMakePackageConfigHelpers)
 
