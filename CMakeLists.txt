@@ -37,7 +37,7 @@ if(ENABLE_VCPKG_BOOTSTRAP)
     set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE PATH "vcpkg toolchain file" FORCE)
 endif()
 
-project(gqlxy-core VERSION 0.1.0 LANGUAGES CXX)
+project(gqlxy-core VERSION 0.1.1 LANGUAGES CXX)
 
 include(cmake/dependencies.cmake)
 
