@@ -35,6 +35,21 @@ struct Selection : std::variant<Field, FragmentSpread, InlineFragment> {};
 }
 
 template <>
+struct std::formatter<gqlxy::parser::SelectionSet> : std::formatter<std::string> {
+    auto format(const gqlxy::parser::SelectionSet& ss, std::format_context& ctx) const {
+        std::string result = "{ ";
+        bool first = true;
+        for (const auto& s : ss.selections) {
+            if (!first) result += ' ';
+            result += std::vformat("{}", std::make_format_args(s));
+            first = false;
+        }
+        result += " }";
+        return std::formatter<std::string>::format(result, ctx);
+    }
+};
+
+template <>
 struct std::formatter<gqlxy::parser::Field> : std::formatter<std::string> {
     auto format(const gqlxy::parser::Field& f, std::format_context& ctx) const {
         return std::formatter<std::string>::format(
@@ -80,16 +95,5 @@ struct std::formatter<gqlxy::parser::Selection> : std::formatter<std::string> {
         return std::formatter<std::string>::format(std::visit([](const auto& v) {
             return std::vformat("{}", std::make_format_args(v));
         }, s), ctx);
-    }
-};
-
-template <>
-struct std::formatter<gqlxy::parser::SelectionSet> : std::formatter<std::string> {
-    auto format(const gqlxy::parser::SelectionSet& ss, std::format_context& ctx) const {
-        return std::formatter<std::string>::format(
-            std::format("{{ {} }}", ss.selections | views::transform([](const auto& s) {
-                return std::format("{}", s);
-            }) | gqlxy::utils::join_with(" ")
-        ), ctx);
     }
 };
