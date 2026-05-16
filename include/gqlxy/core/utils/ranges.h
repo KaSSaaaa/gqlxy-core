@@ -66,7 +66,7 @@ std::string to_string(const T& value) {
 
 template <std::ranges::input_range R>
 auto trim(R&& s) {
-    static auto is_space = [](auto c) { return std::isspace(static_cast<uint8_t>(c)); };
+    static auto is_space = [](auto c) { return std::isspace(c); };
     auto r = s | std::views::drop_while(is_space) | std::views::reverse | std::views::drop_while(is_space) |
              std::views::reverse;
     return std::string(r.begin(), r.end());
