@@ -2,6 +2,7 @@
 
 #include <better-enums/enum.h>
 
+#include <format>
 #include <memory>
 #include <string>
 
@@ -26,3 +27,10 @@ struct TypeRef {
 };
 
 }
+
+template <>
+struct std::formatter<gqlxy::parser::TypeRef> : std::formatter<std::string> {
+    auto format(const gqlxy::parser::TypeRef& t, std::format_context& ctx) const {
+        return std::formatter<std::string>::format(t.ToString(), ctx);
+    }
+};

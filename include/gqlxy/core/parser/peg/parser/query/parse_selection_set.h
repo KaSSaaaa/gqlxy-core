@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gqlxy/core/parser/ast/selection_set.h>
+#include <gqlxy/core/parser/ast/selection.h>
 #include <graphqlservice/internal/SyntaxTree.h>
 
 namespace gqlxy::parser {

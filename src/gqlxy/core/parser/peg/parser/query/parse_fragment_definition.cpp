@@ -1,4 +1,3 @@
-#include <gqlxy/core/parser/ast/selection_set.h>
 #include <gqlxy/core/utils/peg/first_node.h>
 #include <gqlxy/core/parser/peg/parser/query/parse_fragment_definition.h>
 #include <gqlxy/core/parser/peg/parser/query/parse_selection_set.h>
