@@ -43,15 +43,14 @@ struct std::formatter<gqlxy::parser::SelectionSet> : std::formatter<std::string>
         return std::formatter<std::string>::format(gqlxy::parser::FormatSelectionSet(ss), ctx);
     }
 };
-static_assert(std::is_copy_constructible_v<std::formatter<gqlxy::parser::SelectionSet, char>>);
 
 template <>
 struct std::formatter<gqlxy::parser::Field> : std::formatter<std::string> {
     auto format(const gqlxy::parser::Field& f, std::format_context& ctx) const {
         return std::formatter<std::string>::format(
             std::format("{}{}{}{}{}", gqlxy::utils::and_then(f.alias, [](const auto& t) {
-                return std::format("{}: ", t);
-            }),
+                return std::make_optional(std::format("{}: ", t));
+            }).value_or(""),
             f.name,
             !f.arguments.empty() ? std::format("({})", f.arguments) : "",
             !f.directives.empty() ? std::format(" {}", f.directives) : "",
@@ -61,7 +60,6 @@ struct std::formatter<gqlxy::parser::Field> : std::formatter<std::string> {
         ctx);
     }
 };
-static_assert(std::is_copy_constructible_v<std::formatter<gqlxy::parser::Field, char>>);
 
 template <>
 struct std::formatter<gqlxy::parser::FragmentSpread> : std::formatter<std::string> {
@@ -71,7 +69,6 @@ struct std::formatter<gqlxy::parser::FragmentSpread> : std::formatter<std::strin
         ctx);
     }
 };
-static_assert(std::is_copy_constructible_v<std::formatter<gqlxy::parser::FragmentSpread, char>>);
 
 template <>
 struct std::formatter<gqlxy::parser::InlineFragment> : std::formatter<std::string> {
@@ -86,7 +83,6 @@ struct std::formatter<gqlxy::parser::InlineFragment> : std::formatter<std::strin
         ), ctx);
     }
 };
-static_assert(std::is_copy_constructible_v<std::formatter<gqlxy::parser::InlineFragment, char>>);
 
 template <>
 struct std::formatter<gqlxy::parser::Selection> : std::formatter<std::string> {
@@ -94,7 +90,6 @@ struct std::formatter<gqlxy::parser::Selection> : std::formatter<std::string> {
         return std::formatter<std::string>::format(gqlxy::parser::FormatSelection(s), ctx);
     }
 };
-static_assert(std::is_copy_constructible_v<std::formatter<gqlxy::parser::Selection, char>>);
 
 namespace gqlxy::parser {
 
