@@ -16,6 +16,7 @@ struct GraphQLError {
     std::string message;
     std::vector<std::string> path = {};
     std::vector<ErrorLocation> locations = {};
+    std::optional<nlohmann::json> extensions = std::nullopt;
 };
 
 using GraphQLErrors = std::vector<GraphQLError>;

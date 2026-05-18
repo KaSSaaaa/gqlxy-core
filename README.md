@@ -70,6 +70,47 @@ gqlxy::Task<std::string> fetchData() {
 - **`expect.h`** — `expect<TException>(condition, message)`
 - **`peg/`** — PEG node traversal helpers (`first_node`, `find_node`, `is_type`)
 
+## Installation
+
+### vcpkg (recommended)
+
+`gqlxy-core` is available as a vcpkg port from a custom registry.
+
+Add the registry and the dependency to your `vcpkg.json`:
+
+```json
+{
+  "dependencies": ["gqlxy-core"],
+  "configuration": {
+    ...
+    "registries": [
+      ...
+      {
+        "kind": "git",
+        "repository": "https://github.com/KaSSaaaa/vcpkg.git",
+        "reference": "feature/gqlxy",
+        "baseline": "<basline>",
+        "packages": ["gqlxy-*"]
+      }
+    ]
+  }
+}
+```
+
+Then wire it up in CMake:
+
+```cmake
+find_package(gqlxy_core CONFIG REQUIRED)
+target_link_libraries(my_app PRIVATE gqlxy::core)
+```
+
+Configure with the vcpkg toolchain:
+
+```bash
+cmake -B build -DCMAKE_TOOLCHAIN_FILE=/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
+cmake --build build
+```
+
 ## Building
 
 Requires CMake 3.10+ and a C++20-capable compiler. Dependencies are managed via [vcpkg](https://vcpkg.io).

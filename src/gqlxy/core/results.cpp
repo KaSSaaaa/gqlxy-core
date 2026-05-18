@@ -12,14 +12,15 @@ json Serialize(const GraphQLResponse& result) {
     if (result.data) r["data"] = *result.data;
     if (result.errors) {
         auto err = json::array();
-        for (const auto& [message, path, locations] : *result.errors) {
-            err.push_back({
-                {"message", message},
-                {"path", path},
-                {"location", to_vector(locations | views::transform([](const auto& loc) -> json {
+        for (const auto& e : *result.errors) {
+            json entry = {{"message", e.message}};
+            if (!e.path.empty()) entry["path"] = e.path;
+            if (!e.locations.empty())
+                entry["locations"] = to_vector(e.locations | views::transform([](const auto& loc) -> json {
                     return {{"line", loc.line}, {"column", loc.column}};
-                }))}
-            });
+                }));
+            if (e.extensions.has_value()) entry["extensions"] = *e.extensions;
+            err.emplace_back(std::move(entry));
         }
         r["errors"] = err;
     }
