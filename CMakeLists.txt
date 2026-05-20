@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10.0)
+cmake_minimum_required(VERSION 3.19.0)
 option(ENABLE_VCPKG_BOOTSTRAP "Bootstrap vcpkg in the build dir and install manifest deps" OFF)
 option(ENABLE_COVERAGE "Instrument binaries for gcov/lcov code coverage" OFF)
 
@@ -37,7 +37,10 @@ if(ENABLE_VCPKG_BOOTSTRAP)
     set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE PATH "vcpkg toolchain file" FORCE)
 endif()
 
-project(gqlxy-core VERSION 0.1.1 LANGUAGES CXX)
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg.json" _vcpkg_json)
+string(JSON _project_version GET "${_vcpkg_json}" "version")
+
+project(gqlxy-core VERSION ${_project_version} LANGUAGES CXX)
 
 include(cmake/dependencies.cmake)
 
